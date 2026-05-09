@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Mother's Day 💐</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rose: #e8476a;
+    --blush: #f7c5d0;
+    --petal: #fde8ee;
+    --gold: #c9a96e;
+    --cream: #fdf8f3;
+    --deep: #2b1a2f;
+    --mauve: #8b5e77;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lora', serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--rose);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, opacity 0.2s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-trail {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blush);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: left 0.18s ease, top 0.18s ease;
+    opacity: 0.6;
+  }
+
+  /* Floating petals background */
+  .petals-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    width: 12px; height: 12px;
+    background: var(--blush);
+    border-radius: 0 80% 0 80%;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { opacity: 0; transform: translateY(-20px) rotate(0deg); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(110vh) rotate(720deg) translateX(60px); }
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 70% at 50% 40%, #fde8ee 0%, #fdf0f5 50%, #fdf8f3 100%);
+    z-index: -1;
+  }
+
+  .hero-rings {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 71, 106, 0.12);
+    animation: breathe ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.7; }
+  }
+
+  .tag-line {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--mauve);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--deep);
+    margin: 0.3em 0 0.2em;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.6s forwards;
+  }
+
+  .hero-title span {
+    color: var(--rose);
+    display: inline-block;
+    position: relative;
+  }
+
+  .hero-title span::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    border-radius: 2px;
+    animation: lineGrow 1s ease 1.5s both;
+    transform-origin: left;
+  }
+
+  @keyframes lineGrow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    color: var(--mauve);
+    max-width: 520px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.9s forwards;
+  }
+
+  .scroll-hint {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.8s forwards;
+    color: var(--mauve);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .scroll-dot {
+    width: 24px; height: 40px;
+    border: 1.5px solid var(--mauve);
+    border-radius: 20px;
+    position: relative;
+  }
+
+  .scroll-dot::after {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--rose);
+    border-radius: 50%;
+    position: absolute;
+    top: 6px; left: 50%;
+    transform: translateX(-50%);
+    animation: scrollBounce 2s ease infinite;
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { top: 6px; opacity: 1; }
+    80% { top: 24px; opacity: 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Big Flower SVG */
+  .flower-container {
+    width: clamp(200px, 35vw, 320px);
+    margin: 2rem auto 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 1.1s forwards;
+  }
+
+  /* Message Section */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 1.5rem;
+  }
+
+  .section-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-style: italic;
+    color: var(--gold);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-label::before, .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+    max-width: 60px;
+  }
+
+  .section-label::after {
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .message-card {
+    background: white;
+    border-radius: 24px;
+    padding: 3rem clamp(1.5rem, 5vw, 4rem);
+    box-shadow: 0 4px 40px rgba(232, 71, 106, 0.08), 0 1px 8px rgba(0,0,0,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .message-card::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 12rem;
+    color: var(--petal);
+    position: absolute;
+    top: -2rem; left: 1rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .message-text {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 2;
+    color: #4a3050;
+    position: relative;
+  }
+
+  .message-text p { margin-bottom: 1.2em; }
+  .message-text p:last-child { margin-bottom: 0; }
+
+  .message-sig {
+    margin-top: 2rem;
+    text-align: right;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--rose);
+    font-size: 1.3rem;
+  }
+
+  /* Memories / Photo Grid */
+  .memories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+
+  .memory-card {
+    aspect-ratio: 3/4;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    background: var(--petal);
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .memory-card:hover { transform: scale(1.04) rotate(-1deg); }
+  .memory-card:nth-child(even):hover { transform: scale(1.04) rotate(1deg); }
+
+  .memory-card svg {
+    width: 100%; height: 100%;
+  }
+
+  .memory-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.5rem 1rem 1rem;
+    background: linear-gradient(to top, rgba(43,26,47,0.7) 0%, transparent 100%);
+    color: white;
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  /* Reasons Section */
+  .reasons-section {
+    background: linear-gradient(135deg, #2b1a2f 0%, #4a2545 100%);
+    color: white;
+    padding: 5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .reasons-section::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(232,71,106,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .reasons-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--blush);
+  }
+
+  .reasons-list {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .reason-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid rgba(247, 197, 208, 0.12);
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reason-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reason-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-style: italic;
+    color: rgba(232,71,106,0.35);
+    line-height: 1;
+    min-width: 3rem;
+    text-align: right;
+  }
+
+  .reason-text {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.8;
+    color: rgba(253,232,238,0.9);
+    padding-top: 0.5rem;
+  }
+
+  /* Heart Animation Section */
+  .heart-section {
+    padding: 5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .heart-wrap {
+    display: inline-block;
+    position: relative;
+  }
+
+  .heart-main {
+    animation: heartbeat 1.4s ease-in-out infinite;
+    display: block;
+    filter: drop-shadow(0 8px 30px rgba(232,71,106,0.35));
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.12); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.08); }
+    56% { transform: scale(1); }
+  }
+
+  .heart-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    margin-top: 2rem;
+    color: var(--deep);
+  }
+
+  .heart-section p {
+    max-width: 480px;
+    margin: 1rem auto 0;
+    color: var(--mauve);
+    line-height: 1.9;
+    font-size: 1.05rem;
+  }
+
+  /* Poem Section */
+  .poem-section {
+    background: linear-gradient(180deg, #fdf8f3 0%, #fde8ee 100%);
+    padding: 5rem 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .poem-card {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    background: white;
+    border-radius: 24px;
+    padding: 4rem 2.5rem;
+    box-shadow: 0 2px 30px rgba(232,71,106,0.08);
+    position: relative;
+  }
+
+  .poem-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--rose);
+    margin-bottom: 2rem;
+  }
+
+  .poem-body {
+    font-size: 1rem;
+    line-height: 2.2;
+    color: #4a3050;
+  }
+
+  .poem-body .stanza {
+    margin-bottom: 1.5rem;
+  }
+
+  .poem-flowers {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    font-size: 1.8rem;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--deep);
+    color: var(--blush);
+    text-align: center;
+    padding: 3rem 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  footer p {
+    opacity: 0.5;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  .sparkle {
+    display: inline-block;
+    animation: spin 3s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Floating hearts */
+  .float-hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .fheart {
+    position: absolute;
+    font-size: 1.2rem;
+    opacity: 0;
+    animation: floatHeart ease-out forwards;
+  }
+
+  @keyframes floatHeart {
+    0% { opacity: 1; transform: translateY(0) scale(0.5); }
+    100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Section headings */
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--deep);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-heading em {
+    color: var(--rose);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- Floating petals -->
+<div class="petals-bg" id="petalsBg"></div>
+
+<!-- Floating hearts on click -->
+<div class="float-hearts" id="floatHearts"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-rings" id="heroRings"></div>
+
+  <p class="tag-line">A celebration of love</p>
+
+  <!-- Flower SVG -->
+  <div class="flower-container">
+    <svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" id="heroFlower">
+      <defs>
+        <radialGradient id="petalG" cx="50%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#f9c8d8"/>
+          <stop offset="100%" stop-color="#e8476a"/>
+        </radialGradient>
+        <radialGradient id="petalG2" cx="50%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fde8ee"/>
+          <stop offset="100%" stop-color="#f4a0bb"/>
+        </radialGradient>
+        <radialGradient id="centerG" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#ffe066"/>
+          <stop offset="100%" stop-color="#c9a96e"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Stem -->
+      <path d="M160 220 Q145 260 130 300" stroke="#5a9e5a" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <!-- Leaf left -->
+      <path d="M148 260 Q120 245 115 225 Q135 240 148 260Z" fill="#6abf6a"/>
+      <!-- Leaf right -->
+      <path d="M138 272 Q160 255 165 234 Q148 252 138 272Z" fill="#5aaf5a"/>
+
+      <!-- Outer petals -->
+      <g id="outerPetals">
+        <ellipse cx="160" cy="118" rx="22" ry="48" fill="url(#petalG2)" opacity="0.7"/>
+        <ellipse cx="160" cy="118" rx="22" ry="48" fill="url(#petalG2)" opacity="0.7" transform="rotate(45 160 160)"/>
+        <ellipse cx="160" cy="118" rx="22" ry="48" fill="url(#petalG2)" opacity="0.7" transform="rotate(90 160 160)"/>
+        <ellipse cx="160" cy="118" rx="22" ry="48" fill="url(#petalG2)" opacity="0.7" transform="rotate(135 160 160)"/>
+        <ellipse cx="160" cy="118" rx="22" ry="48" fill="url(#petalG2)" opacity="0.7" transform="rotate(180 160 160)"/>
+        <ellipse cx="160" cy="118" rx="22" ry="48" fill="url(#petalG2)" opacity="0.7" transform="rotate(225 160 160)"/>
+        <ellipse cx="160" cy="118" rx="22" ry="48" fill="url(#petalG2)" opacity="0.7" transform="rotate(270 160 160)"/>
+        <ellipse cx="160" cy="118" rx="22" ry="48" fill="url(#petalG2)" opacity="0.7" transform="rotate(315 160 160)"/>
+      </g>
+
+      <!-- Inner petals -->
+      <g id="innerPetals">
+        <ellipse cx="160" cy="128" rx="16" ry="38" fill="url(#petalG)"/>
+        <ellipse cx="160" cy="128" rx="16" ry="38" fill="url(#petalG)" transform="rotate(60 160 160)"/>
+        <ellipse cx="160" cy="128" rx="16" ry="38" fill="url(#petalG)" transform="rotate(120 160 160)"/>
+        <ellipse cx="160" cy="128" rx="16" ry="38" fill="url(#petalG)" transform="rotate(180 160 160)"/>
+        <ellipse cx="160" cy="128" rx="16" ry="38" fill="url(#petalG)" transform="rotate(240 160 160)"/>
+        <ellipse cx="160" cy="128" rx="16" ry="38" fill="url(#petalG)" transform="rotate(300 160 160)"/>
+      </g>
+
+      <!-- Center -->
+      <circle cx="160" cy="160" r="30" fill="url(#centerG)"/>
+      <circle cx="160" cy="160" r="22" fill="#e8a838" opacity="0.6"/>
+      <circle cx="160" cy="160" r="14" fill="#c9a96e"/>
+
+      <!-- Center dots -->
+      <circle cx="152" cy="155" r="2.5" fill="#ffe066"/>
+      <circle cx="160" cy="152" r="2.5" fill="#ffe066"/>
+      <circle cx="168" cy="155" r="2.5" fill="#ffe066"/>
+      <circle cx="155" cy="163" r="2.5" fill="#ffe066"/>
+      <circle cx="165" cy="163" r="2.5" fill="#ffe066"/>
+    </svg>
+  </div>
+
+  <h1 class="hero-title">Happy <span>Mother's</span> Day</h1>
+  <p class="hero-sub">To the woman who gave me everything — her love, her time, her whole heart.</p>
+
+  <div class="scroll-hint">
+    <div class="scroll-dot"></div>
+    <span>Scroll with love</span>
+  </div>
+</section>
+
+<!-- MESSAGE -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">A letter from the heart</div>
+    <div class="message-card reveal">
+      <div class="message-text">
+        <p>Dear Maa,</p>
+        <p>There are no words grand enough to describe what you mean to me. From the very first breath I took, you were there — wrapping me in a warmth that no winter could ever touch.</p>
+        <p>You are the reason I know how to love. You are the first melody I ever heard, the softest hands I've ever known, and the strongest heart I've ever witnessed.</p>
+        <p>Every meal you cooked was seasoned with patience. Every story you told was woven with wisdom. Every sacrifice you made — though you never called it that — shaped who I am today.</p>
+        <p>On this special day, I want you to know: you are my world, my safe place, my forever home.</p>
+        <div class="message-sig">With all my love, always 💗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 REASONS -->
+<section class="reasons-section">
+  <div class="reasons-title">10 Reasons I Love You</div>
+  <div class="reasons-list" id="reasonsList">
+    <div class="reason-item">
+      <div class="reason-num">01</div>
+      <div class="reason-text">Your hugs make every problem feel smaller and every joy feel infinitely bigger.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">02</div>
+      <div class="reason-text">You always believe in me — even when I don't believe in myself.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">03</div>
+      <div class="reason-text">The way your eyes light up when you laugh is the most beautiful thing I've ever seen.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">04</div>
+      <div class="reason-text">You never gave up — on your dreams, on your family, on me. Your strength is legendary.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">05</div>
+      <div class="reason-text">Your cooking is magic. Every bite is made of love and I taste it every single time.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">06</div>
+      <div class="reason-text">You taught me that kindness is power and patience is its own reward.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">07</div>
+      <div class="reason-text">You sacrificed your comfort so I could chase my dreams. I carry that forever.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">08</div>
+      <div class="reason-text">Your laugh is contagious. Your joy is a gift to everyone around you.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">09</div>
+      <div class="reason-text">You are proof that love is not just a feeling — it is a choice made daily, with grace.</div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">10</div>
+      <div class="reason-text">Simply because you are you — irreplaceable, extraordinary, and mine.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HEART BEAT -->
+<section class="heart-section">
+  <div class="heart-wrap">
+    <svg class="heart-main" width="120" height="110" viewBox="0 0 120 110" fill="none">
+      <path d="M60 95 C60 95 8 58 8 28 C8 12 20 4 35 4 C46 4 55 11 60 18 C65 11 74 4 85 4 C100 4 112 12 112 28 C112 58 60 95 60 95Z" fill="#e8476a"/>
+      <path d="M35 16 C29 18 24 24 22 32" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <h2>You Are My Heartbeat</h2>
+  <p>Every good thing in me is a reflection of your love. Thank you for being my foundation, my compass, and my greatest inspiration.</p>
+</section>
+
+<!-- POEM -->
+<section class="poem-section">
+  <div class="poem-card reveal">
+    <div class="poem-title">A Poem For You</div>
+    <div class="poem-body">
+      <div class="stanza">
+        She is the dawn before the day,<br>
+        The warmth that never fades away,<br>
+        In every scar and every sigh,<br>
+        She loved me till the stars were high.
+      </div>
+      <div class="stanza">
+        Her hands, though worn, still gently hold<br>
+        The stories only she has told,<br>
+        A universe within her grace,<br>
+        The world made tender by her face.
+      </div>
+      <div class="stanza">
+        No gift could ever match her worth,<br>
+        The most extraordinary soul on earth —<br>
+        My mother, my first home, my light,<br>
+        My reason to stand tall and right.
+      </div>
+    </div>
+    <div class="poem-flowers">
+      <span>🌸</span><span>💐</span><span>🌺</span><span>🌷</span><span>🌹</span>
+    </div>
+  </div>
+</section>
+
+<!-- MEMORY CARDS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">Beautiful Moments</div>
+    <h2 class="section-heading reveal">Memories That <em>Bloom</em> Forever</h2>
+    <div class="memories-grid">
+      <!-- Card 1 -->
+      <div class="memory-card reveal">
+        <svg viewBox="0 0 200 267" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="267" fill="#fde8ee"/>
+          <circle cx="100" cy="90" r="60" fill="#f4a0bb" opacity="0.4"/>
+          <ellipse cx="100" cy="85" rx="25" ry="35" fill="#e8476a" opacity="0.6"/>
+          <ellipse cx="100" cy="85" rx="25" ry="35" fill="#e8476a" opacity="0.6" transform="rotate(72 100 85)"/>
+          <ellipse cx="100" cy="85" rx="25" ry="35" fill="#e8476a" opacity="0.6" transform="rotate(144 100 85)"/>
+          <ellipse cx="100" cy="85" rx="25" ry="35" fill="#e8476a" opacity="0.6" transform="rotate(216 100 85)"/>
+          <ellipse cx="100" cy="85" rx="25" ry="35" fill="#e8476a" opacity="0.6" transform="rotate(288 100 85)"/>
+          <circle cx="100" cy="85" r="18" fill="#c9a96e"/>
+          <path d="M100 140 Q90 165 80 195" stroke="#5a9e5a" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="85" cy="168" rx="14" ry="9" fill="#6abf6a" transform="rotate(-30 85 168)"/>
+        </svg>
+        <div class="memory-label">First flowers from our garden 🌸</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="memory-card reveal" style="transition-delay:0.1s">
+        <svg viewBox="0 0 200 267" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="267" fill="#e8f4fd"/>
+          <rect x="30" y="120" width="140" height="100" rx="8" fill="#c9e2f5"/>
+          <rect x="50" y="100" width="100" height="30" rx="4" fill="#a8cde8"/>
+          <circle cx="100" cy="75" r="35" fill="#f9c8d8"/>
+          <ellipse cx="88" cy="70" rx="6" ry="7" fill="#5a3a4a"/>
+          <ellipse cx="112" cy="70" rx="6" ry="7" fill="#5a3a4a"/>
+          <path d="M88 90 Q100 100 112 90" stroke="#e8476a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M70 60 Q75 48 85 52" stroke="#8b5e77" stroke-width="2" fill="none"/>
+          <path d="M130 60 Q125 48 115 52" stroke="#8b5e77" stroke-width="2" fill="none"/>
+        </svg>
+        <div class="memory-label">Your beautiful smile 😊</div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="memory-card reveal" style="transition-delay:0.2s">
+        <svg viewBox="0 0 200 267" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="267" fill="#fef9e8"/>
+          <circle cx="100" cy="100" r="55" fill="#fde8ee"/>
+          <path d="M100 50 L110 80 L142 80 L117 98 L127 128 L100 110 L73 128 L83 98 L58 80 L90 80 Z" fill="#c9a96e"/>
+          <path d="M100 65 L107 85 L128 85 L112 96 L118 117 L100 105 L82 117 L88 96 L72 85 L93 85 Z" fill="#ffe066"/>
+          <rect x="60" y="170" width="80" height="55" rx="6" fill="#f4a0bb"/>
+          <rect x="80" y="165" width="40" height="12" rx="4" fill="#e8476a"/>
+          <path d="M100 165 Q100 145 100 145" stroke="#e8476a" stroke-width="1.5" fill="none"/>
+          <circle cx="100" cy="143" r="4" fill="#e8476a"/>
+        </svg>
+        <div class="memory-label">You are my golden star ⭐</div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="memory-card reveal" style="transition-delay:0.3s">
+        <svg viewBox="0 0 200 267" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="267" fill="#eefde8"/>
+          <rect x="20" y="180" width="160" height="70" rx="0" fill="#8BC34A" opacity="0.5"/>
+          <rect x="20" y="200" width="160" height="67" fill="#6abf6a" opacity="0.6"/>
+          <path d="M60 180 Q80 110 100 80 Q120 110 140 180" fill="#5aaf5a" opacity="0.7"/>
+          <path d="M90 180 Q100 130 110 110 Q120 130 110 180" fill="#4a9f4a" opacity="0.8"/>
+          <circle cx="100" cy="70" r="22" fill="#ffe066" opacity="0.9"/>
+          <circle cx="100" cy="70" r="18" fill="#ffcc44"/>
+          <path d="M25 75 L35 65 M30 75 L30 60" stroke="#ffcc44" stroke-width="3" stroke-linecap="round"/>
+          <path d="M175 75 L165 65 M170 75 L170 60" stroke="#ffcc44" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="memory-label">Morning walks in the park 🌿</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <h3>Happy Mother's Day, Maa 💗</h3>
+  <div style="font-size:2rem; margin:1rem 0;">
+    <span class="sparkle">✦</span>
+  </div>
+  <p style="color:rgba(247,197,208,0.7); font-style:italic; font-size:1rem;">"A mother's love is the fuel that enables a normal human being to do the impossible."</p>
+  <p>Made with love ♥ — just for you</p>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const trail = document.getElementById('cursorTrail');
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    setTimeout(() => {
+      trail.style.left = mx + 'px';
+      trail.style.top = my + 'px';
+    }, 80);
+  });
+
+  // Floating petals
+  const petalsBg = document.getElementById('petalsBg');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const size = 8 + Math.random() * 14;
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${size}px;
+      height: ${size}px;
+      animation-duration: ${6 + Math.random() * 10}s;
+      animation-delay: ${Math.random() * 12}s;
+      opacity: 0;
+      background: hsl(${340 + Math.random() * 20}, ${70 + Math.random() * 20}%, ${75 + Math.random() * 15}%);
+    `;
+    petalsBg.appendChild(p);
+  }
+
+  // Hero rings
+  const heroRings = document.getElementById('heroRings');
+  [200,320,460,600,760].forEach((size, i) => {
+    const r = document.createElement('div');
+    r.className = 'ring';
+    r.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: 50%; top: 40%;
+      transform: translate(-50%, -50%);
+      animation-duration: ${3 + i * 0.5}s;
+      animation-delay: ${i * 0.3}s;
+    `;
+    heroRings.appendChild(r);
+  });
+
+  // Flower continuous rotation
+  const outer = document.getElementById('outerPetals');
+  const inner = document.getElementById('innerPetals');
+  let angle = 0;
+  function rotatePetals() {
+    angle += 0.15;
+    outer.setAttribute('transform', `rotate(${angle} 160 160)`);
+    inner.setAttribute('transform', `rotate(${-angle * 0.6} 160 160)`);
+    requestAnimationFrame(rotatePetals);
+  }
+  rotatePetals();
+
+  // Click hearts
+  const floatHeartsEl = document.getElementById('floatHearts');
+  document.addEventListener('click', e => {
+    for(let i = 0; i < 5; i++) {
+      const h = document.createElement('div');
+      h.className = 'fheart';
+      h.textContent = ['💗','💖','💝','❤️','🌸'][Math.floor(Math.random()*5)];
+      h.style.left = (e.clientX - 10 + (Math.random()-0.5)*40) + 'px';
+      h.style.top = (e.clientY - 10) + 'px';
+      h.style.animationDuration = (0.8 + Math.random()*0.6) + 's';
+      h.style.animationDelay = (Math.random()*0.3) + 's';
+      floatHeartsEl.appendChild(h);
+      setTimeout(() => h.remove(), 1600);
+    }
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const reasons = document.querySelectorAll('.reason-item');
+  const allObserved = [...reveals, ...reasons];
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.dataset.delay || 0;
+        setTimeout(() => el.classList.add('visible'), delay * 1000);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  reasons.forEach((r, i) => { r.dataset.delay = i * 0.08; io.observe(r); });
+  reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Mother's Day 💝</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #C9726B;
+    --blush: #F2D4D0;
+    --cream: #FDF6F0;
+    --warm: #F7EDE8;
+    --gold: #C4975A;
+    --brown: #6B4226;
+    --text: #3D2314;
+    --muted: #9C7B6E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Jost', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* Floating petals */
+  .petals { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+  .petal {
+    position: absolute;
+    top: -40px;
+    font-size: 18px;
+    animation: fall linear infinite;
+    opacity: 0.5;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-40px) rotate(0deg); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 0%, #f7ddd8 0%, var(--cream) 70%);
+    z-index: 1;
+  }
+
+  .hero-ornament {
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 12vw, 110px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--rose);
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--brown);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .hero-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 36px auto;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+  }
+
+  .hero-date {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.3s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.8s forwards;
+  }
+  .scroll-hint span { font-size: 11px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+  .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease infinite; }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Sections */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    text-align: center;
+    padding: 80px 24px 48px;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 300;
+    color: var(--brown);
+    line-height: 1.1;
+  }
+
+  .section-title em { font-style: italic; color: var(--rose); }
+
+  /* Photo Gallery */
+  .gallery-section { background: var(--warm); padding-bottom: 80px; }
+
+  .gallery-intro {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto 48px;
+    padding: 0 24px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .photo-card {
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(61,35,20,0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+  }
+
+  .photo-card:hover {
+    transform: translateY(-6px) rotate(0.5deg);
+    box-shadow: 0 12px 40px rgba(61,35,20,0.15);
+  }
+
+  .photo-card:nth-child(even):hover { transform: translateY(-6px) rotate(-0.5deg); }
+
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--blush);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .photo-card:hover .photo-frame img { transform: scale(1.05); }
+
+  .photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--rose);
+    opacity: 0.6;
+  }
+
+  .photo-placeholder .icon { font-size: 36px; }
+  .photo-placeholder p { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  .upload-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: white;
+    border: 1px solid var(--blush);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-family: 'Jost', sans-serif;
+    color: var(--rose);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .upload-btn:hover { background: var(--rose); color: white; }
+
+  .photo-input { display: none; }
+
+  .photo-caption {
+    padding: 16px 18px;
+    border-top: 1px solid var(--blush);
+  }
+
+  .photo-caption-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--brown);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .photo-caption-date {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* Letter Section */
+  .letter-section {
+    background: var(--cream);
+    padding-bottom: 100px;
+  }
+
+  .letter-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .letter-paper {
+    background: white;
+    border-radius: 2px;
+    padding: 64px 56px;
+    box-shadow: 0 8px 60px rgba(61,35,20,0.1), 0 2px 8px rgba(61,35,20,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .letter-paper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 56px;
+    width: 1px; height: 100%;
+    background: #f7d8d4;
+    opacity: 0.6;
+  }
+
+  .letter-paper::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(to right, var(--rose), var(--gold), var(--rose));
+  }
+
+  .letter-salutation {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--rose);
+    margin-bottom: 32px;
+  }
+
+  .letter-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .letter-body p { margin-bottom: 24px; }
+  .letter-body p:last-child { margin-bottom: 0; }
+
+  .letter-highlight {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  .letter-closing {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--blush);
+  }
+
+  .letter-closing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--muted);
+    font-style: italic;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .letter-signature {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--rose);
+    font-style: italic;
+  }
+
+  .letter-hearts {
+    margin-top: 24px;
+    font-size: 20px;
+    letter-spacing: 6px;
+    opacity: 0.6;
+  }
+
+  /* Edit letter */
+  .edit-letter-btn {
+    display: block;
+    margin: 24px auto 0;
+    background: transparent;
+    border: 1px solid var(--rose);
+    border-radius: 30px;
+    padding: 10px 28px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rose);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .edit-letter-btn:hover { background: var(--rose); color: white; }
+
+  /* Editable */
+  [contenteditable="true"] {
+    outline: none;
+    border-bottom: 1px dashed var(--rose);
+    cursor: text;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--brown);
+    color: var(--blush);
+    text-align: center;
+    padding: 48px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-heart { font-size: 32px; display: block; margin-bottom: 12px; animation: heartbeat 1.5s ease infinite; }
+  @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+  .footer-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+
+  .footer-sub {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(30,10,5,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 4px; box-shadow: 0 0 80px rgba(0,0,0,0.5); }
+  .lightbox-close { position: absolute; top: 24px; right: 28px; font-size: 32px; color: white; cursor: pointer; opacity: 0.7; line-height: 1; }
+
+  @media (max-width: 600px) {
+    .letter-paper { padding: 40px 28px; }
+    .letter-paper::before { left: 28px; }
+    .gallery-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating petals -->
+<div class="petals" id="petals"></div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">×</span>
+  <img id="lightbox-img" src="" alt="Memory">
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <p class="hero-ornament">A tribute to the most important person</p>
+  <h1 class="hero-title">Happy<br><em>Mother's</em><br>Day</h1>
+  <p class="hero-subtitle">For the woman who made everything possible</p>
+  <div class="hero-divider"></div>
+  <p class="hero-date">With all my love, always</p>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- Photo Gallery -->
+<section class="gallery-section">
+  <div class="section-header">
+    <span class="section-tag">Our memories together</span>
+    <h2 class="section-title">A lifetime of<br><em>beautiful moments</em></h2>
+  </div>
+  <p class="gallery-intro">Every photo holds a feeling, a laugh, a moment I never want to forget. These are some of my favourite memories with you.</p>
+
+  <div class="gallery-grid" id="gallery">
+
+    <div class="photo-card">
+      <div class="photo-frame" id="frame-1">
+        <img src="1.lnk"alt="Memory"
+        onclick="openLightbox(this.src)">
+        </div>
+        
+      <div class="photo-caption">
+        <span class="photo-caption-text" contenteditable="true">happy mothers day to everyone i love u all and thak u for everything you all have done for the family</span>
+       </span>
+      </div>
+    </div>
+
+    <div class="photo-card">
+      <div class="photo-frame" id="frame-2">   
+          <img src="2.lnk"alt="Memory"
+        onclick="openLightbox(this.src)">
+        </div>
+      <div class="photo-caption">
+        <span class="photo-caption-text" contenteditable="true">thank u mimi for everything you have done i really love u alot and always love the way that you nevergive up in any situation love u mimi that you always treat like your own son</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="photo-card">
+      <div class="photo-frame" id="frame-3">
+      <img src="3.lnk"alt="Memory"
+        onclick="openLightbox(this.src)">
+        </div>
+      <div class="photo-caption">
+        <span class="photo-caption-text" contenteditable="true">thank u joti massi for treating with love i still remember when i was just kid always troubles u alot thank u for providing me right guidance and i really want to be a kid while u teach me in kg</span>
+       </span>
+      </div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-frame" id="frame-4">
+        <img src="4.lnk"alt="Memory"
+        onclick="openLightbox(this.src)">
+        </div>
+      <div class="photo-caption">
+        <span class="photo-caption-text" contenteditable="true">love u mumma for everything the efforts you made sacrifices you have done etc i love u soo much </span>
+       </span>
+      </div>
+    </div>
+
+    <div class="photo-card">
+      <div class="photo-frame" id="frame-5">
+      <img src="5.lnk"alt="Memory"
+        onclick="openLightbox(this.src)">
+        </div>
+       
+      <div class="photo-caption">
+        <span class="photo-caption-text" contenteditable="true">You are my whole world mee ji love u alot i always the remeber the day when i took off from my schools the tasty maggi,cartoons  i still want to live my childhood the best days all because of u meeji love u soo much</span>
+        </span>
+      </div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-frame" id="frame-6">
+      <img src="6.lnk"alt="Memory"
+        onclick="openLightbox(this.src)">
+        </div>
+      <div class="photo-caption">
+        <span class="photo-caption-text" contenteditable="true">you are my whole world</span>
+       </span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Letter Section -->
+<section class="letter-section">
+  <div class="section-header">
+    <span class="section-tag">From my heart to yours</span>
+    <h2 class="section-title">A letter<br><em>just for you</em></h2>
+  </div>
+
+  <div class="letter-wrap">
+    <div class="letter-paper">
+      <p class="letter-salutation">Dear Maa,</p>
+      <div class="letter-body" id="letter-content">
+        <p>There are not enough words in any language to fully describe what you mean to me. But today, on this special day, I want to try — because you deserve to hear it, even when I forget to say it often enough.</p>
+        <p>You have been <span class="letter-highlight">my safe place in every storm</span>, the first voice I want to hear when something goes wrong, and the first person I want to call when something goes right. You have given me more than I could ever repay — not just in things, but in the quiet, steady love that shaped everything I am.</p>
+        <p>I see it now, more than I ever did before — the sacrifices you made without ever calling them sacrifices. The late nights, the worries you carried alone so I wouldn't have to, the way you always put everyone else first and made it look effortless.</p>
+        <p>You are <span class="letter-highlight">the reason I believe in kindness</span>, in patience, in showing up for the people you love no matter what. Every good thing in me came from watching you.</p>
+        <p>Thank you, Maa. For everything — for every single thing. I love you more than this page could ever hold.</p>
+      </div>
+      <div class="letter-closing">
+        <span class="letter-closing-text">Forever and always, your child —</span>
+        <span class="letter-signature" contenteditable="true">Maynk and pari</span>
+        <div class="letter-hearts">💝 💗 💝</div>
+      </div>
+    </div>
+    <button class="edit-letter-btn" onclick="toggleEdit()">✏️ Personalise this letter</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span class="footer-heart">💝</span>
+  <p class="footer-text">"A mother's love is the fuel that enables a normal human being to do the impossible."</p>
+  <p class="footer-sub">Happy Mother's Day · Made with love</p>
+</footer>
+
+<script>
+  // Floating petals
+  const emojis = ['🌸','🌷','🌹','💗','🌺','✿','❀'];
+  const container = document.getElementById('petals');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    p.style.fontSize = (14 + Math.random() * 16) + 'px';
+    container.appendChild(p);
+  }
+
+  // Upload photos
+  function triggerUpload(inputId) {
+    event.stopPropagation();
+    document.getElementById(inputId).click();
+  }
+
+  function loadPhoto(input, frameId) {
+    if (!input.files || !input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const frame = document.getElementById(frameId);
+      frame.innerHTML = `<img src="${e.target.result}" alt="Memory" onclick="openLightbox(this.src)">`;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+
+  // Edit letter
+  let editing = false;
+  function toggleEdit() {
+    editing = !editing;
+    const content = document.getElementById('letter-content');
+    content.contentEditable = editing ? 'true' : 'false';
+    document.querySelector('.edit-letter-btn').textContent = editing ? '✅ Done editing' : '✏️ Personalise this letter';
+    if (editing) content.focus();
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.photo-card, .letter-paper').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
